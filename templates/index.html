@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}صفحه اصلی{% endblock %} | پروژه جنگو</title>
     <h1>Hi my dear</h1>
-    <link rel="stylesheet" href="static/test.css">
+    <link rel="stylesheet" href="{% static 'test.css' %}">
 </head>
 </html>
