@@ -7,4 +7,5 @@ def blog_view(request):
     return render(request,'blog/blog-home.html')
 
 def blog_single(request):
-    return render(request,'blog/blog-single.html')
+    context = {'title':'WARNING','content':'Oh shit here we go again'}
+    return render(request,'blog/blog-single.html', context)

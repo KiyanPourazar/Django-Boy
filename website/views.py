@@ -9,3 +9,10 @@ def index_about(request):
 
 def index_contact(request):
     return render(request, 'website/contact.html')
+
+def test_view(request):
+    context = {'name':'Kiyan','lastname':'Pourazar'}
+    return render(request, 'website/test.html', context)
+
+def elements_view(request):
+    return render(request, 'website/elements.html')
