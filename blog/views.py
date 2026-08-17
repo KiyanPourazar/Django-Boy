@@ -4,12 +4,12 @@ from blog.models import Post
 
 
 # Create your views here.
-def blog_view(request, cat_name=None, author_username=None):
+def blog_view(request, **kwargs):
     posts = Post.objects.filter(status=1)
-    if cat_name:
-        posts = posts.filter(category__title=cat_name)
-    if author_username:
-        posts = posts.filter(author__username=author_username)
+    if kwargs.get('cat_name') != None:
+        posts = posts.filter(category__title=kwargs['cat_name'])
+    if kwargs.get('author_username') != None:
+        posts = posts.filter(author__username=kwargs['author_username'])
     context = {'posts':posts}
     return render(request,'blog/blog-home.html',context)
 
