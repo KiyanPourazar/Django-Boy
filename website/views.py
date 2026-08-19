@@ -1,7 +1,7 @@
 from django.http import HttpResponse,JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from website.models import Contact
-from website.forms import NameForm, ContactForm
+from website.forms import NameForm, ContactForm, NewsletterForm
 
 def index_home(request):
     return render(request, 'website/index.html')
@@ -21,6 +21,15 @@ def index_contact(request):
     form = ContactForm()
 
     return render(request, 'website/contact.html', {'form': form})
+
+def newsletter_view(request):
+    if request.method == "POST":
+        form = NewsletterForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def test_view(request):
     if request.method == "POST":
