@@ -1,4 +1,4 @@
-{% load blog_tags %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,16 +7,18 @@
     <title>test</title>
 </head>
 <body>
-    <h1>Hello {{name}} {{lastname}}</h1>
-    <p>{% get_posts as tp %}</p>
-<p>
-    {% for post in tp %}
-    <p>{{post.content|snippet:100}}</p>
-    {% endfor %}
-</p>
 
-<p>
-    {% popularposts %}
-</p>
+    <form action="{% url 'website:test' %}" method="post">
+        {% csrf_token %}
+        <label>name:</label>
+        <input name="name" type="text"><br>
+        <label>email:</label>
+        <input name="email" type="email"><br>
+        <label>subject:</label>
+        <input name="subject" type="text"><br>
+        <label>message:</label>
+        <input name="message" type="text"><br>
+        <button type="submit">sumbit</button>
+    </form>
 </body>
 </html>
