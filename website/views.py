@@ -10,7 +10,17 @@ def index_about(request):
     return render(request, 'website/about.html')
 
 def index_contact(request):
-    return render(request, 'website/contact.html')
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('done')
+        else:
+            return HttpResponse('not valid')
+
+    form = ContactForm()
+
+    return render(request, 'website/contact.html', {'form': form})
 
 def test_view(request):
     if request.method == "POST":
@@ -32,6 +42,3 @@ def test_view(request):
     form = ContactForm()
 
     return render(request, 'website/test.html', {'form': form})
-
-def elements_view(request):
-    return render(request, 'website/elements.html')

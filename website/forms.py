@@ -13,3 +13,4 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = '__all__'
         # fields = ['Name', 'Email', 'Subject', 'Message']
+
