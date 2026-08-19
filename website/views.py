@@ -1,5 +1,6 @@
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from website.models import Contact
 from website.forms import NameForm, ContactForm, NewsletterForm
 
@@ -14,10 +15,9 @@ def index_contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse('done')
+            messages.success(request, "Your message has been sent.")
         else:
-            return HttpResponse('not valid')
-
+            messages.error(request, "Your message hasn't been sent.")
     form = ContactForm()
 
     return render(request, 'website/contact.html', {'form': form})
@@ -28,6 +28,9 @@ def newsletter_view(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, "Your email has been saved.")
+        else:
+            messages.error(request, "Your email hasn't been saved.")
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
