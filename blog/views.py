@@ -2,14 +2,18 @@ from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render, get_object_or_404
 from blog.models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from taggit.models import Tag
 
 # Create your views here.
 def blog_view(request, **kwargs):
     posts = Post.objects.filter(status=1)
+    tags = Tag.objects.all()
     if kwargs.get('cat_name') != None:
         posts = posts.filter(category__title=kwargs['cat_name'])
     if kwargs.get('author_username') != None:
         posts = posts.filter(author__username=kwargs['author_username'])
+    if kwargs.get('tag_name') != None:
+        posts = posts.filter(tags__name=kwargs['tag_name'])
 
     posts = Paginator(posts, 3)
 
@@ -19,7 +23,11 @@ def blog_view(request, **kwargs):
     except (PageNotAnInteger, EmptyPage):
         posts = posts.page(1)
 
-    context = {'posts':posts}
+    context = {
+        'posts':posts,
+        'tags':tags
+    }
+
     return render(request,'blog/blog-home.html',context)
 
 def blog_single(request, pid):
