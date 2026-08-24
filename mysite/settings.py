@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'multi_captcha_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'taggit',
     'django_summernote',
+    'captcha',
     # 'templatetags',
 ]
 
@@ -56,6 +58,10 @@ SITE_ID = 2
 ROBOTS_USE_HOST = True
 ROBOTS_USE_SITEMAP = True
 
+#captcha admin
+MULTI_CAPTCHA_ADMIN = {
+    'engin': 'simple-captcha',
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
