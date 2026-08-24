@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'robots',
     'debug_toolbar',
     'taggit',
+    'django_summernote',
     # 'templatetags',
 ]
 
@@ -144,3 +145,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
