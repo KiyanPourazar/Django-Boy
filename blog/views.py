@@ -5,8 +5,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from taggit.models import Tag
 from blog.forms import CommentForm
 from django.contrib import messages
+# from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+# @login_required(login_url='/accounts/login')
 def blog_view(request, **kwargs):
     posts = Post.objects.filter(status=1)
     tags = Tag.objects.all()
