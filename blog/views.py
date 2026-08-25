@@ -1,10 +1,12 @@
 from django.http import HttpResponse,JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from taggit.models import Tag
 from blog.forms import CommentForm
 from django.contrib import messages
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 # from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -42,14 +44,22 @@ def blog_single(request, pid):
            messages.success(request, "Your comment has been submitted.")
         else:
             messages.error(request, "Your comment has been submitted.")
-
-
     posts = Post.objects.filter(status=1)
     post = get_object_or_404(posts, pk=pid)
-    comments = Comment.objects.filter(post=post.id, approved=True).order_by('-created_date')
-    form = CommentForm()
-    context = {'post': post, 'comments': comments, 'form': form}
-    return render(request, 'blog/blog-single.html', context)
+
+    if not post.login_required:
+        comments = Comment.objects.filter(post=post.id, approved=True).order_by('-created_date')
+        form = CommentForm()
+        context = {'post': post, 'comments': comments, 'form': form}
+        return render(request, 'blog/blog-single.html', context)
+    else:
+        if request.user.is_authenticated:
+            comments = Comment.objects.filter(post=post.id, approved=True).order_by('-created_date')
+            form = CommentForm()
+            context = {'post': post, 'comments': comments, 'form': form}
+            return render(request, 'blog/blog-single.html', context)
+        else:
+            return HttpResponseRedirect(reverse('accounts:login'))
 
 def test(request, pid):
     # post = Post.objects.get(id=pid)
