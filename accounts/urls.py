@@ -7,7 +7,7 @@ from blog.feeds import LatestEntriesFeed
 app_name = 'accounts'
 
 urlpatterns = [
-    path('login', login, name='login'),
-    path('logout', logout, name='logout'),
-    path('signup', signup, name='signup'),
+    path('login', login_view, name='login'),
+    path('logout', logout_view, name='logout'),
+    path('signup', signup_view, name='signup'),
 ]
